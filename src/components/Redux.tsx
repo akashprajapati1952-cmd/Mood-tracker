@@ -1,4 +1,4 @@
-
+import { AnyAction} from 'redux'
 import {createStore} from 'redux'
 
 export interface State{
@@ -13,12 +13,13 @@ const initialState={
 
 export const action1={
   type: "Mood is happy",
-}
+  payload: 5}
 export const action2={
-  type: "Mood is sad"
+  type: "Mood is sad",
+  payload: 5
 }
 
-const moodReducer= (state: State= initialState, action)=>{
+const moodReducer= (state: State= initialState, action: AnyAction)=>{
   if(action.type === "Mood is happy"){
     return {...state, happyCount: state.happyCount + 1}
   }

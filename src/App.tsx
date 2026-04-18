@@ -7,10 +7,10 @@ function App() {
   
 
   return (
-    <div className="flex flex-col gap-5 items-center p-10">
+    <div className="flex flex-col items-center">
       <HappyTracker/>
       <SadTracker/>
-      <div className="flex justify-between w-screen">
+      <div className="flex justify-between w-screen ">
         <Happy/>
         <Sad/>
       </div>
