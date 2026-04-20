@@ -1,32 +1,25 @@
-import { AnyAction} from 'redux'
-import {createStore} from 'redux'
-
-export interface State{
-  happyCount: number;
-  sadCount: number;
+import {happyReducer, sadReducer} from './Reducers.tsx'
+import {createStore, combineReducers} from 'redux'
+import {produce} from 'immer'
+interface Moment{
+  count: number;
+  when: string;
+}
+interface Action{
+  type: string;
+  payload?: Moment;
 }
 
-const initialState={
-  happyCount: 0,
-  sadCount: 0
-}
-
-export const action1={
-  type: "Mood is happy",
-  payload: 5}
-export const action2={
-  type: "Mood is sad",
-  payload: 5
-}
-
-const moodReducer= (state: State= initialState, action: AnyAction)=>{
-  if(action.type === "Mood is happy"){
-    return {...state, happyCount: state.happyCount + 1}
+const moodReducer= combineReducers({
+  happyMoment: happyReducer,
+  sadMoment: sadReducer
+})
+const rootReducer = (state: State | undefined, action: Action) => {
+  if (action.type === 'clear') {
+    return moodReducer(undefined, action);
   }
-  if(action.type === "Mood is sad"){
-    return {...state, sadCount: state.sadCount + 1}
-  }
-  return {...state}
-}
+  return moodReducer(state, action);
+};
+export type State= ReturnType<typeof moodReducer>
 
-export const store= createStore(moodReducer)
+export const store= createStore(rootReducer)
