@@ -1,18 +1,15 @@
 import { useDispatch} from 'react-redux'
 import {useState} from 'react'
-
+import {happyAction} from '../Actions/actions.ts'
 
 
 
 const Happy=()=> {
   const dispatch=useDispatch();
   const [happyValue, setHappyValue]=useState<string>("")
-  const action1={
-    type: "Mood is happy",
-    payload: {count: Number(happyValue), when: new Date().toLocaleString()} 
-  }
+  
   function handleClick(){
-    dispatch(action1)
+    dispatch(happyAction(happyValue))
     setHappyValue("")
   }
   return (

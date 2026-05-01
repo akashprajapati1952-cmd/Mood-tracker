@@ -1,21 +1,17 @@
-import {happyReducer, sadReducer} from './Reducers.tsx'
+import {happyReducer, sadReducer} from './Reducers/moodReducers.ts'
 import {createStore, combineReducers} from 'redux'
 import {produce} from 'immer'
-interface Moment{
-  count: number;
-  when: string;
-}
-interface Action{
-  type: string;
-  payload?: Moment;
-}
+import {type Action } from "./Models/models.ts"
+import {CLEAR} from './Actions/actions.ts'
+import { productReducer } from './Reducers/products.ts'
 
 const moodReducer= combineReducers({
   happyMoment: happyReducer,
-  sadMoment: sadReducer
+  sadMoment: sadReducer,
+  products: productReducer
 })
 const rootReducer = (state: State | undefined, action: Action) => {
-  if (action.type === 'clear') {
+  if (action.type === CLEAR) {
     return moodReducer(undefined, action);
   }
   return moodReducer(state, action);

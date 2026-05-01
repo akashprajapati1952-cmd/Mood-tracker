@@ -1,16 +1,14 @@
 import { useDispatch} from 'react-redux'
 import {useState} from 'react'
+import {sadAction} from '../Actions/actions.ts'
 
 
 const Sad=()=> {
   const dispatch=useDispatch();
   const [sadValue, setSadValue]=useState<string>("")
-  const action={
-    type: "Mood is sad",
-    payload: {count: Number(sadValue), when: new Date().toLocaleString()}
-  }
+  
   function handleClick(){
-    dispatch(action)
+    dispatch(sadAction(sadValue))
     setSadValue("")
   }
   return (
