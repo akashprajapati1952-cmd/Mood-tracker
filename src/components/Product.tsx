@@ -1,4 +1,4 @@
-import React from "react";
+
 import { type Product } from "../Models/models.ts";
 
 interface Props {

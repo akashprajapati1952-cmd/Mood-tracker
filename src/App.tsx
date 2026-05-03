@@ -6,6 +6,7 @@ import Clear from './components/Clear.tsx'
 import { Routes, Route} from 'react-router-dom'
 import ProductList from './components/ProductList.tsx'
 import OrderList from './components/OrderList.tsx'
+import Order from './components/Order.tsx'
 
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
     <div className="flex flex-col w-full">
       <Routes>
         <Route index element={<OrderList/>}/>
+        <Route path='/order/:orderId' element={<Order></Order>}/>
         <Route path="/products" element={<ProductList/>}/>
         <Route path="/moodtracker" element={
         <div>

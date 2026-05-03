@@ -4,14 +4,14 @@ export interface Moment{
 }
 export interface Action{
   type: string;
-  payload?: Moment;
+  payload?: any;
 }
 
 export interface Product {
   id: number;
   title: string;
   price: number;
-  category: string;
+  category?: string;
   thumbnail: string;
   rating?: number;
   stock?: number;
@@ -19,7 +19,7 @@ export interface Product {
   discountPercentage?: number;
 }
 
-interface Order {
+export interface Order {
   id: number;
   products: number[];
   total: number;
@@ -27,4 +27,8 @@ interface Order {
   userId: number;
   totalProducts: number;
   totalQuantity: number;
+}
+
+export interface OrdersProducts{
+  [pId: number]:{quantity: number, total: number,discountedTotal: number}
 }

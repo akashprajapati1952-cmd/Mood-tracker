@@ -1,22 +1,34 @@
 import axios from 'axios'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import {type Order } from '../Models/models.ts'
-import {schema, normalize} from 'normalizr'
-import {getOrders} from '../Selectors/orders-selector.ts'
+
+import {ordersLoaded} from '../Actions/actions.ts'
+import { getOrdersDetail } from '../Selectors/orders-selector.ts';
+import { Link } from 'react-router';
 
 const OrderList= ()=>{
-  const orders=useSelector(getOrders)
+  const ordersDetail= useSelector(getOrdersDetail)
+  const {ordersArr, ordersProducts}= ordersDetail
+  const dispatch= useDispatch();
   useEffect(()=>{
-    const productSchema=new schema.Entity('products');
-    const orderSchema =new schema.Entity('orders', {products: [productSchema]});
-    const OrderListSchema=[orderSchema]
     axios.get("https://dummyjson.com/carts").then((res)=>{
-      const nrmlzData=normalize(res.data.carts, OrderListSchema)
-      console.log(nrmlzData)
-      
+      dispatch(ordersLoaded(res.data.carts))
     })
   },[])
-  return <div>helow guys</div>
+  
+  return <div>
+    {ordersProducts && Object.keys(ordersProducts).map((id)=>{
+      const order= ordersArr.find((item)=>item.id === +id)
+      return <div key={id} className='bg-green-700 border border-yellow-300'>
+        <p>Order id {id}</p>
+        <p>Total Products {order?.totalProducts}</p>
+        <p>Total Quantity {order?.totalQuantity}</p>
+        <p>Total Amount {order?.total}</p>
+        <p>Total Discounted Amount {order?.discountedTotal}</p>
+        <Link to={'/order/'+id} className='bg-indigo-600'>View Details</Link>
+      </div>
+       
+    })}
+  </div>
 }
 export default OrderList

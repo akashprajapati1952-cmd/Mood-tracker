@@ -1,7 +1,8 @@
-import   {PRODUCTS_LOADED, LOAD_PRODUCTS} from '../Actions/actions.ts'
+import   {PRODUCTS_LOADED, LOAD_PRODUCTS,ORDERS_LOADED} from '../Actions/actions.ts'
 import {type Action , type Product} from '../Models/models.ts'
 import {produce} from 'immer'
-import {schema, normalize} from 'normalizr'
+
+
 
 interface State{
   products: {[id: number]: Product};
@@ -20,7 +21,7 @@ export const productReducer=(state: State= initialState , action: Action)=>{
       })
     case PRODUCTS_LOADED:
       return produce(state, (draft)=>{
-        const prd= action.payload.reduce((prev:{[id: number]: Product}, cur)=>{
+        const prd= (action.payload as Product[])?.reduce<{[id: number]: Product}>((prev: {[id: number]: Product} | {}, cur: Product)=>{
           const filteredProduct: Product = {
             id: cur.id,
             title: cur.title,
@@ -36,6 +37,10 @@ export const productReducer=(state: State= initialState , action: Action)=>{
         },{})
         draft.products= prd
         draft.loading= false;
+      })
+    case ORDERS_LOADED:
+      return produce(state,(draft)=>{
+        draft.products={...draft.products, ...action.payload?.products}
       })
     default:
       return state;
