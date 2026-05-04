@@ -26,7 +26,6 @@ export const orderReducer=(state: State=initialState, action: Action)=>{
         draft.loading= false;
         draft.orders=action.payload?.orders
         draft.ordersProducts=action.payload?.ordersProducts
-        console.log(action.payload)
       })
     default:
       return state
