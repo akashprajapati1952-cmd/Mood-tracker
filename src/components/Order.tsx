@@ -11,7 +11,7 @@ interface Props{
   
 }
 
-export const OrderDetail:FC<Props> = ({order,  products}) =>{
+export const OrderDetail:FC<Props> = ({order,  products, orderId}) =>{
   return <div>
     {order?.products.map((product)=>{
       const prd= products[product]
@@ -28,4 +28,4 @@ const mapStateToProps= (state: State, ownProps: Props)=>{
     products: state.products.products
   }
 }
-export default connect(mapStateToProps)(withOrderId(OrderDetail))
+export default connect(mapStateToProps)(OrderDetail)
