@@ -15,7 +15,7 @@ function App() {
     <div className="flex flex-col w-full">
       <Routes>
         <Route index element={<OrderList/>}/>
-        <Route path='/order/:orderId' element={<Order></Order>}/>
+        <Route path='/order/:orderId' element={<Order/>}/>
         <Route path="/products" element={<ProductList/>}/>
         <Route path="/moodtracker" element={
         <div>

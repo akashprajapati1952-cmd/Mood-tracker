@@ -6,8 +6,8 @@ interface Props{
 
 function withOrderId<T extends Props> (Component: React.ComponentType<T>){
   return (props: Omit<T, keyof Props>) =>{
-  const params=useParams();
-  const orderId=+params.orderId!
+    const params=useParams();
+    const orderId=+params.orderId!
     return <Component {...(props as T)} orderId={orderId}/>
   }
 }
