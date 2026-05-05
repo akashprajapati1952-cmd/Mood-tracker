@@ -20,12 +20,12 @@ export const OrderDetail:FC<Props> = ({order,  products}) =>{
     })}
   </div>
 }
-const mapStateToProps= (state: State, ownProps: Partial<Props>)=>{
-  const orderId= +ownProps.orderId
+const mapStateToProps= (state: State, ownProps: Props)=>{
+  const orderId= ownProps.orderId!
+  console.log(orderId)
   return{
-    order:state.orders.orders[orderId],
+    order:state.orders.orders[2],
     products: state.products.products
   }
 }
-const newfunc=withOrderId(OrderDetail)
-export default connect(mapStateToProps)(newfunc)
+export default connect(mapStateToProps)(withOrderId(OrderDetail))
